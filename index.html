@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,12 +9,12 @@
         }
 
         body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        user-select: none;
-        background: #050801;
-    }
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            user-select: none;
+            background: #050801;
+        }
 
         .content {
             width: 100%;
@@ -24,53 +24,54 @@
         }
 
         .container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 50px;
-    }
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+        }
 
-    #glow {
-        position: relative;
-        display: inline-block;
-        padding: 40px 20px;
-        color: #fff;
-        text-decoration: none;
-        text-transform: uppercase;
-        transition: 0.5s;
-        letter-spacing: 4px;
-        overflow: hidden;
-        border: .5px solid #fff;
-        border-radius: 50%;
-        cursor: pointer;
-    }
+        #glow {
+            position: relative;
+            display: inline-block;
+            padding: 40px 20px;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: 0.5s;
+            letter-spacing: 4px;
+            overflow: hidden;
+            border: .5px solid #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    #glow:active {
-        background: white;
-        color: #050801;
-        box-shadow: 0 0 5px white, 0 0 15px white, 0 0 25px white, 0 0 50px white;
-    }
+        #glow:active {
+            background: white;
+            color: #050801;
+            box-shadow: 0 0 5px white, 0 0 15px white, 0 0 25px white, 0 0 50px white;
+        }
 
-    #position-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 75vh;
-    }
+        #position-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 75vh;
+        }
 
-    #position {
-        color: white;
-    }
+        #position {
+            color: white;
+        }
 
-    #left, #right {
-        color: white;
-        border: 0.5px solid white;
-        padding: 20px;
-    }
+        #left, #right {
+            color: white;
+            border: 0.5px solid white;
+            padding: 20px;
+        }
 
-    #left:hover, #right:hover {
-        background-color: #555;
-    }
+        #left:hover, #right:hover {
+            background-color: #555;
+        }
 
         @media (max-width: 768px) {
             .content {
@@ -142,4 +143,144 @@
         }
     </script>
 </body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            user-select: none;
+            background: #050801;
+        }
+
+        .content {
+            width: 100%;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        #glow {
+            position: relative;
+            display: inline-block;
+            padding: 40px 20px;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: 0.5s;
+            letter-spacing: 4px;
+            overflow: hidden;
+            border: .5px solid #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        #glow.active {
+            /* Add your styles for the active state here */
+            background: white;
+            color: #050801;
+            box-shadow: 0 0 5px white, 0 0 15px white, 0 0 25px white, 0 0 50px white;
+        }
+
+        #position-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 75vh;
+        }
+
+        #position {
+            color: white;
+        }
+
+        #left, #right {
+            color: white;
+            border: 0.5px solid white;
+            padding: 20px;
+        }
+
+        #left:hover, #right:hover {
+            background-color: #555;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 10px; 
+            }
+        }
+    </style>
+    <title>Your Web Page</title>
+</head>
+<body>
+    <div class="content">
+        <div id="position-container">
+            <div id="position">Position</div>
+        </div>
+        <div class="container">
+            <div id="left">Left</div>
+            <div id="glow">Glow</div>
+            <div id="right">Right</div>
+        </div>
+    </div>
+
+    <script>
+        var glow = document.getElementById('glow');
+
+        glow.addEventListener('touchstart', function(event) {
+            startTracking(event);
+        });
+
+        glow.addEventListener('touchend', function(event) {
+            stopTracking(event);
+        });
+
+        function startTracking(event) {
+            event.preventDefault(); // Prevent default touchstart behavior
+            glow.classList.add('active');
+        }
+
+        function stopTracking(event) {
+            event.preventDefault(); // Prevent default touchend behavior
+            glow.classList.remove('active');
+        }
+    </script>
+</body>
 </html>
+
+
