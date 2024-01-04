@@ -286,7 +286,6 @@
  -->
 
 
-
  <!DOCTYPE html>
  <html lang="en">
  
@@ -318,6 +317,8 @@
             align-items: center;
             justify-content: center;
             gap: 35px;
+            padding: 30px 0px;
+            border: 0.5px solid white;
         }
 
         #glow {
@@ -337,7 +338,6 @@
         }
 
         #glow.active {
-            /* Add your styles for the active state here */
             background: white;
             color: #050801;
             box-shadow: 0 0 5px white, 0 0 15px white, 0 0 25px white, 0 0 50px white;
@@ -347,7 +347,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 75vh;
+            height: 70vh;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #position-container a{
+            color: greenyellow;
         }
 
         #position {
@@ -377,6 +383,7 @@
      <div class="content">
          <div id="position-container">
              <div id="position">Position</div>
+             <div><a href="./release.html">Go to</a></div>
          </div>
          <div class="container">
              <div id="left">Left</div>
@@ -428,4 +435,11 @@
  </body>
  
  </html>
- 
+
+
+
+
+
+
+
+
