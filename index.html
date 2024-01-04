@@ -1,263 +1,145 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>            
+    <style>
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #050801;
-            font-family: 'Raleway', sans-serif;
-            font-weight: bold;
-            user-select: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        user-select: none;
+        background: #050801;
+    }
+
+        .content {
+            width: 100%;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
         }
 
         .container {
-            display: flex;
-            align-items: center;
-            gap: 100px;
-        }
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 50px;
+    }
 
-        #glow {
-            position: relative;
-            display: inline-block;
-            padding: 40px 20px;
-            color: #fff;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: 0.5s;
-            letter-spacing: 4px;
-            overflow: hidden;
-            border: .5px solid #fff;
-            border-radius: 50%;
-            cursor: pointer;
-        }
+    #glow {
+        position: relative;
+        display: inline-block;
+        padding: 40px 20px;
+        color: #fff;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: 0.5s;
+        letter-spacing: 4px;
+        overflow: hidden;
+        border: .5px solid #fff;
+        border-radius: 50%;
+        cursor: pointer;
+    }
 
-        #glow:active {
-            background: white;
-            color: #050801;
-            box-shadow: 0 0 5px white, 0 0 15px white, 0 0 25px white, 0 0 50px white;
-        }
+    #glow:active {
+        background: white;
+        color: #050801;
+        box-shadow: 0 0 5px white, 0 0 15px white, 0 0 25px white, 0 0 50px white;
+    }
 
-        #position {
-            color: white;
-        }
+    #position-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 75vh;
+    }
 
-        #left, #right {
-            color: white;
-            border: 0.5px solid white;
-            padding: 20px;
+    #position {
+        color: white;
+    }
+
+    #left, #right {
+        color: white;
+        border: 0.5px solid white;
+        padding: 20px;
+    }
+
+    #left:hover, #right:hover {
+        background-color: #555;
+    }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 10px; 
+            }
         }
     </style>
+    <title>Your Web Page</title>
 </head>
 <body>
-    <div id="position">Position</div>
-    <div class="container">
-        <div id="left">Left</div>
-        <div id="glow" onmousedown="startTracking()" onmouseup="stopTracking()">Glow</div>
-        <div id="right">Right</div>
+    <div class="content">
+        <div id="position-container">
+            <div id="position">Position</div>
+        </div>
+        <div class="container">
+            <div id="left">Left</div>
+            <div id="glow" onmousedown="startTracking()" onmouseup="stopTracking()">Glow</div>
+            <div id="right">Right</div>
+        </div>
     </div>
+    <script>
+        let tracking = false;
+        let currentPosition = '';
 
-<script>
-    let tracking = false;
-    let currentPosition = '';
+        function startTracking() {
+            tracking = true;
+            document.addEventListener('mouseup', handleMouseUp);
+        }
 
-    function startTracking() {
-        tracking = true;
-        document.addEventListener('mousemove', handleMouseMove);
-    }
+        function stopTracking() {
+            tracking = false;
+            document.removeEventListener('mouseup', handleMouseUp);
+        }
 
-    function stopTracking() {
-        tracking = false;
-        document.removeEventListener('mousemove', handleMouseMove);
-    }
+        function handleMouseUp(event) {
+            if (tracking) {
+                const glow = document.getElementById('glow');
+                const glowRect = glow.getBoundingClientRect();
 
-    function handleMouseMove(event) {
-        if (tracking) {
-            const glow = document.getElementById('glow');
-            const glowRect = glow.getBoundingClientRect();
+                const left = document.getElementById('left');
+                const leftRect = left.getBoundingClientRect();
 
-            const left = document.getElementById('left');
-            const leftRect = left.getBoundingClientRect();
+                const right = document.getElementById('right');
+                const rightRect = right.getBoundingClientRect();
 
-            const right = document.getElementById('right');
-            const rightRect = right.getBoundingClientRect();
+                const x = event.clientX;
+                const y = event.clientY;
 
-            const x = event.clientX;
-            const y = event.clientY;
+                let newPosition = '';
 
-            let newPosition = '';
+                if (
+                    x >= leftRect.left && x <= leftRect.right &&
+                    y >= leftRect.top && y <= leftRect.bottom
+                ) {
+                    newPosition = 'Left';
+                } else if (
+                    x >= rightRect.left && x <= rightRect.right &&
+                    y >= rightRect.top && y <= rightRect.bottom
+                ) {
+                    newPosition = 'Right';
+                }
 
-            if (
-                x >= leftRect.left && x <= leftRect.right &&
-                y >= leftRect.top && y <= leftRect.bottom
-            ) {
-                newPosition = 'Left';
-            } else if (
-                x >= rightRect.left && x <= rightRect.right &&
-                y >= rightRect.top && y <= rightRect.bottom
-            ) {
-                newPosition = 'Right';
-            }
-
-            if (newPosition !== currentPosition && newPosition !== '') {
-                document.getElementById('position').innerText = newPosition;
-                console.log(newPosition);
-                currentPosition = newPosition;
+                if (newPosition !== currentPosition && newPosition !== '') {
+                    document.getElementById('position').innerText = newPosition;
+                    console.log(newPosition);
+                    currentPosition = newPosition;
+                }
             }
         }
-    }
-</script>    
+    </script>
 </body>
 </html>
- -->
-
-
- <!DOCTYPE html>
- <html lang="en">
- <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Document</title>
-     <style>                       
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #050801;
-            font-family: 'Raleway', sans-serif;
-            font-weight: bold;
-            user-select: none;
-        }
-
-        .container {
-            display: flex;
-            align-items: center;
-            gap: 100px;
-        }
-
-        #glow {
-            position: relative;
-            display: inline-block;
-            padding: 40px 20px;
-            color: #fff;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: 0.5s;
-            letter-spacing: 4px;
-            overflow: hidden;
-            border: .5px solid #fff;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        #glow:active {
-            background: white;
-            color: #050801;
-            box-shadow: 0 0 5px white, 0 0 15px white, 0 0 25px white, 0 0 50px white;
-        }
-
-        #position {
-            color: white;
-        }
-
-        #left, #right {
-            color: white;
-            border: 0.5px solid white;
-            padding: 20px;
-        }
- 
-         #left:hover, #right:hover {
-             background-color: #555;
-         }
-     </style>
- </head>
- <body>
-     <div id="position">Position</div>
-     <div class="container">
-         <div id="left">Left</div>
-         <div id="glow" onmousedown="startTracking()" onmouseup="stopTracking()">Glow</div>
-         <div id="right">Right</div>
-     </div>
- 
- <script>
-     let tracking = false;
-     let currentPosition = '';
- 
-     function startTracking() {
-         tracking = true;
-         document.addEventListener('mouseup', handleMouseUp);
-     }
- 
-     function stopTracking() {
-         tracking = false;
-         document.removeEventListener('mouseup', handleMouseUp);
-     }
- 
-     function handleMouseUp(event) {
-         if (tracking) {
-             const glow = document.getElementById('glow');
-             const glowRect = glow.getBoundingClientRect();
- 
-             const left = document.getElementById('left');
-             const leftRect = left.getBoundingClientRect();
- 
-             const right = document.getElementById('right');
-             const rightRect = right.getBoundingClientRect();
- 
-             const x = event.clientX;
-             const y = event.clientY;
- 
-             let newPosition = '';
- 
-             if (
-                 x >= leftRect.left && x <= leftRect.right &&
-                 y >= leftRect.top && y <= leftRect.bottom
-             ) {
-                 newPosition = 'Left';
-             } else if (
-                 x >= rightRect.left && x <= rightRect.right &&
-                 y >= rightRect.top && y <= rightRect.bottom
-             ) {
-                 newPosition = 'Right';
-             }
- 
-             if (newPosition !== currentPosition && newPosition !== '') {
-                 document.getElementById('position').innerText = newPosition;
-                 console.log(newPosition);
-                 currentPosition = newPosition;
-             }
-         }
-     }
- </script>    
- </body>
- </html>
- 
-
-
-
-
-
-
-
