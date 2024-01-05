@@ -1,87 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Add any additional styles you want here */
-    </style>
-</head>
-<body class="w-screen h-screen bg-black select-none">
-    <div class="h-full flex items-center justify-center flex-col gap-12 text-white p-12">
-        <div id="touchPosition">Touch Position: X=0, Y=0</div>
-        <div id="releasePosition">Release Position: X=0, Y=0</div>
-        <div id="inside">Unknown</div>
-        <div id="side">side</div>
-        <div id="playground" class="border border-white-300 w-full flex items-center  h-24">
-            <div id="left" class="h-full border border-white-300 p-4 flex items-center justify-center flex-grow">Left</div>
-            <div id="touch" class="pointer h-full border border-white-300 p-4 flex items-center justify-center">Touch me</div>
-            <div id="right" class="h-full border border-white-300 p-4 flex items-center justify-center flex-grow">Right</div>
-        </div>
-    </div>
-
-    <script>
-        // Get the "touchPosition," "releasePosition," "inside," and "side" elements
-        var touchPositionElement = document.getElementById('touchPosition');
-        var releasePositionElement = document.getElementById('releasePosition');
-        var insideElement = document.getElementById('inside');
-        var sideElement = document.getElementById('side');
-
-        // Variables to store touch coordinates
-        var touchStartX = 0;
-        var touchStartY = 0;
-
-        // Add a touchstart event listener to the #touch element
-        document.getElementById('touch').addEventListener('touchstart', function(event) {
-            // Prevent default touch behavior
-            event.preventDefault();
-
-            // Get the touch start coordinates
-            var touch = event.touches[0];
-            touchStartX = touch.clientX;
-            touchStartY = touch.clientY;
-
-            // Update the "touchPosition" element with the touch start coordinates
-            touchPositionElement.textContent = 'Touch Position: X=' + touchStartX + ', Y=' + touchStartY;
-        }, { passive: false });
-
-        // Add a touchend event listener to the #touch element
-        document.getElementById('touch').addEventListener('touchend', function(event) {
-            // Prevent default touch behavior
-            event.preventDefault();
-
-            // Get the touch end coordinates
-            var touch = event.changedTouches[0];
-            var touchEndX = touch.clientX;
-            var touchEndY = touch.clientY;
-
-            // Update the "releasePosition" element with the touch end coordinates
-            releasePositionElement.textContent = 'Release Position: X=' + touchEndX + ', Y=' + touchEndY;
-
-            // Check if the release position is inside the #playground boundaries
-            var playgroundRect = document.getElementById('playground').getBoundingClientRect();
-            if (touchEndX >= playgroundRect.left && touchEndX <= playgroundRect.right &&
-                touchEndY >= playgroundRect.top && touchEndY <= playgroundRect.bottom) {
-                insideElement.textContent = 'Inside';
-                // Check if the release position is on the left or right side
-                var playgroundCenterX = (playgroundRect.left + playgroundRect.right) / 2;
-                if (touchEndX < playgroundCenterX) {
-                    sideElement.textContent = 'Left';
-                } else {
-                    sideElement.textContent = 'Right';
-                }
-            } else {
-                insideElement.textContent = 'Outside';
-                sideElement.textContent = 'Unknown';
-            }
-        }, { passive: false });
-    </script>
-</body>
-</html> -->
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,8 +11,8 @@
 <body class="w-screen h-screen bg-black select-none">
     <div class="h-full flex items-center justify-center flex-col gap-12 text-white p-12">
         <div id="inside">Unknown</div>
-        <div id="side">side</div>
-        <div id="playground" class="border border-white-300 w-full flex items-center  h-24">
+        <div id="side">Unknown</div>
+        <div id="playground" class="border border-white-300 w-full flex items-center h-24">
             <div id="left" class="h-full border border-white-300 p-4 flex items-center justify-center flex-grow">Left</div>
             <div id="touch" class="pointer h-full border border-white-300 p-4 flex items-center justify-center">Touch me</div>
             <div id="right" class="h-full border border-white-300 p-4 flex items-center justify-center flex-grow">Right</div>
@@ -104,13 +20,13 @@
     </div>
 
     <script>
-        // Get the "touchPosition," "releasePosition," "inside," and "side" elements
-        var insideElement = document.getElementById('inside');
-        var sideElement = document.getElementById('side');
+        // Get the "inside" and "side" elements
+        let insideElement = document.getElementById('inside');
+        let sideElement = document.getElementById('side');
 
         // Variables to store touch coordinates
-        var touchStartX = 0;
-        var touchStartY = 0;
+        let touchStartX = 0;
+        let touchStartY = 0;
 
         // Add a touchstart event listener to the #touch element
         document.getElementById('touch').addEventListener('touchstart', function(event) {
@@ -118,7 +34,7 @@
             event.preventDefault();
 
             // Get the touch start coordinates
-            var touch = event.touches[0];
+            let touch = event.touches[0];
             touchStartX = touch.clientX;
             touchStartY = touch.clientY;
 
@@ -130,28 +46,58 @@
             event.preventDefault();
 
             // Get the touch end coordinates
-            var touch = event.changedTouches[0];
-            var touchEndX = touch.clientX;
-            var touchEndY = touch.clientY;
+            let touch = event.changedTouches[0];
+            let touchEndX = touch.clientX;
+            let touchEndY = touch.clientY;
 
-            // Check if the release position is inside the #playground boundaries
-            var playgroundRect = document.getElementById('playground').getBoundingClientRect();
+            // Get the #touch element's bounding rect
+            let touchRect = document.getElementById('touch').getBoundingClientRect();
 
-            if (touchEndX >= playgroundRect.left && touchEndX <= playgroundRect.right &&
-                touchEndY >= playgroundRect.top && touchEndY <= playgroundRect.bottom) {
-                insideElement.textContent = 'Inside';
-                // Check if the release position is on the left or right side
-                var playgroundCenterX = (playgroundRect.left + playgroundRect.right) / 2;
-                if (touchEndX < playgroundCenterX) {
-                    sideElement.textContent = 'Left';
-                } else {
-                    sideElement.textContent = 'Right';
-                }
+            // Check if the release position is inside the #touch element
+            if (touchEndX >= touchRect.left && touchEndX <= touchRect.right &&
+                touchEndY >= touchRect.top && touchEndY <= touchRect.bottom) {
+                handleMiddle();
             } else {
-                insideElement.textContent = 'Outside';
-                sideElement.textContent = 'Unknown';
+                // Get the #playground element's bounding rect
+                let playgroundRect = document.getElementById('playground').getBoundingClientRect();
+
+                // Check if the release position is inside the #playground boundaries
+                if (touchEndX >= playgroundRect.left && touchEndX <= playgroundRect.right &&
+                    touchEndY >= playgroundRect.top && touchEndY <= playgroundRect.bottom) {
+                    // Check if the release position is on the left or right side
+                    let playgroundCenterX = (playgroundRect.left + playgroundRect.right) / 2;
+                    if (touchEndX < playgroundCenterX) {
+                        handleLeft();
+                    } else {
+                        handleRight();
+                    }
+                } else {
+                    insideElement.textContent = 'Outside';
+                    sideElement.textContent = 'Unknown';
+                }
             }
         }, { passive: false });
+
+        // Function to handle left side
+        function handleLeft() {
+            insideElement.textContent = 'Inside';
+            sideElement.textContent = 'Left';
+            console.log("Left")
+        }
+
+        // Function to handle middle side
+        function handleMiddle() {
+            insideElement.textContent = 'Inside';
+            sideElement.textContent = 'Middle';
+            console.log("Middle")
+        }
+
+        // Function to handle right side
+        function handleRight() {
+            insideElement.textContent = 'Inside';
+            sideElement.textContent = 'Right';
+            console.log("Right")
+        }
     </script>
 </body>
 </html>

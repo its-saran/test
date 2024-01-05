@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            html, body {
+                margin: 0;
+                overflow: hidden;
+                height: 100vh;
+                user-select: none;
+            }
+
+            #glow {
+                position: relative;
+                display: inline-block;
+                padding: 40px 20px;
+                color: #fff;
+                text-decoration: none;
+                text-transform: uppercase;
+                transition: 0.5s;
+                letter-spacing: 4px;
+                overflow: hidden;
+                border: .5px solid #fff;
+                border-radius: 50%;
+                cursor: pointer;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            #glow.active {
+                background: white;
+                color: #050801;
+                box-shadow: 0 0 5px white, 0 0 15px white, 0 0 25px white, 0 0 50px white;
+            }
+
+            .half-circle {
+                width: 115vw; /* Set a width larger than the screen width */
+                height: 22vh; /* Set half of the viewport height to create a semi-circle */
+                border-radius: 50% 50% 0 0;
+                position: absolute;
+                background-color: black;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-top: 1px solid white;
+                box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+            }
+            .name {
+                color: white;
+            }
+        </style>
+        <title>Half Circle</title>
+    </head>
+    <body>
+        <div class="half-circle">
+            <div id="glow">Glow</div>
+        </div>
+
+        <SCript>
+            var glow = document.getElementById('glow');
+    
+            var touchStartX;
+    
+            glow.addEventListener('touchstart', function (event) {
+                startTracking(event);
+            });
+    
+            glow.addEventListener('touchend', function (event) {
+                stopTracking(event);
+            });
+    
+            function startTracking(event) {
+                event.preventDefault(); // Prevent default touchstart behavior
+                glow.classList.add('active');
+                touchStartX = event.touches[0].clientX;
+            }
+    
+            function stopTracking(event) {
+                event.preventDefault(); // Prevent default touchend behavior
+                glow.classList.remove('active');
+            }
+        </script>
+    </body>
+</html>
