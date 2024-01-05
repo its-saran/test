@@ -383,7 +383,7 @@
      <div class="content">
          <div id="position-container">
              <div id="position">Position</div>
-             <div><a href="./release.html">Go to</a></div>
+             <div><a href="./arch.html">Go to</a></div>
          </div>
          <div class="container">
              <div id="left">Left</div>
@@ -393,44 +393,44 @@
      </div>
  
      <script>
-        //  var glow = document.getElementById('glow');
-        //  var positionContainer = document.getElementById('position-container');
-        //  var positionElement = document.getElementById('position');
+         var glow = document.getElementById('glow');
+         var positionContainer = document.getElementById('position-container');
+         var positionElement = document.getElementById('position');
  
-        //  var touchStartX;
+         var touchStartX;
  
-        //  glow.addEventListener('touchstart', function (event) {
-        //      startTracking(event);
-        //  });
+         glow.addEventListener('touchstart', function (event) {
+             startTracking(event);
+         });
  
-        //  glow.addEventListener('touchend', function (event) {
-        //      stopTracking(event);
-        //  });
+         glow.addEventListener('touchend', function (event) {
+             stopTracking(event);
+         });
  
-        //  function startTracking(event) {
-        //      event.preventDefault(); // Prevent default touchstart behavior
-        //      glow.classList.add('active');
-        //      touchStartX = event.touches[0].clientX;
-        //  }
+         function startTracking(event) {
+             event.preventDefault(); // Prevent default touchstart behavior
+             glow.classList.add('active');
+             touchStartX = event.touches[0].clientX;
+         }
  
-        //  function stopTracking(event) {
-        //      event.preventDefault(); // Prevent default touchend behavior
-        //      glow.classList.remove('active');
+         function stopTracking(event) {
+             event.preventDefault(); // Prevent default touchend behavior
+             glow.classList.remove('active');
  
-        //      var touchEndX = event.changedTouches[0].clientX;
-        //      var touchDiff = touchEndX - touchStartX;
+             var touchEndX = event.changedTouches[0].clientX;
+             var touchDiff = touchEndX - touchStartX;
  
-        //      if (touchDiff > 50) {
-        //          // Released on the right
-        //          positionElement.textContent = 'Right';
-        //      } else if (touchDiff < -50) {
-        //          // Released on the left
-        //          positionElement.textContent = 'Left';
-        //      } else {
-        //          // Released in the middle or not enough swipe distance
-        //          positionElement.textContent = 'Position';
-        //      }
-        // }
+             if (touchDiff > 50) {
+                 // Released on the right
+                 positionElement.textContent = 'Right';
+             } else if (touchDiff < -50) {
+                 // Released on the left
+                 positionElement.textContent = 'Left';
+             } else {
+                 // Released in the middle or not enough swipe distance
+                 positionElement.textContent = 'Position';
+             }
+        }
      </script>
  </body>
  
